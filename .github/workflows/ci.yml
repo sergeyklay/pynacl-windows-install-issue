@@ -37,10 +37,18 @@ jobs:
       - name: Update pip
         run: python -m pip install -U pip
 
-      - name: Update pip
+      - name: Print PATH
+        run: Write-Host $Env:Path
+
+      - name: Print PATHEXT
+        run: Write-Host $Env:PathExt
+
+      - name: Find make
         run: |
-          Write-Host $Env:Path
-          Write-Host $Env:PathExt
+          $AllDrives = Get-PSDrive -PSProvider 'FileSystem'
+          foreach ($drive in $AllDrives) {
+              Get-ChildItem -path $drive.Root -recurse -include "make.exe", "make.EXE"
+          }
 
       - name: Install PyNaCl
         run: pip install pynacl

@@ -44,11 +44,7 @@ jobs:
         run: Write-Host $Env:PathExt
 
       - name: Find make
-        run: |
-          $AllDrives = Get-PSDrive -PSProvider 'FileSystem'
-          foreach ($drive in $AllDrives) {
-              Get-ChildItem -path $drive.Root -recurse -include "make.exe", "make.EXE"
-          }
+        run: Get-ChildItem C:\ -recurse -include "make.exe", "make.EXE"
 
       - name: Install PyNaCl
         run: pip install pynacl

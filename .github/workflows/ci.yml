@@ -22,6 +22,7 @@ jobs:
           - '3.8'
           - '3.9'
           - '3.10.0-beta - 3.10'
+          - 'pypy-3.7'
         os:
           # Windows Server 2019
           - windows-2019
@@ -38,6 +39,9 @@ jobs:
       - name: Update pip
         run: python -m pip install -U pip
 
+      - name: Show Python version
+        run: python --version
+
       - name: Print PATH
         run: Write-Host $Env:Path
 
@@ -45,9 +49,7 @@ jobs:
         run: Write-Host $Env:PathExt
 
       - name: Find make
-        run: |
-          # Get-ChildItem C:\ProgramData\Chocolatey\bin -recurse -include "make.exe", "make.EXE"
-          (Get-Command make).Path
+        run: (Get-Command make).Path
 
       - name: Show make version
         run: make --version

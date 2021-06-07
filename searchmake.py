@@ -5,6 +5,7 @@ def which(name, flags=os.X_OK):  # Taken from pynacl's setup.py
     result = []
     exts = filter(None, os.environ.get("PATHEXT", "").split(os.pathsep))
     path = os.environ.get("PATH", None)
+    print(f'[DEBUG] current path is {path}')
     if path is None:
         return []
     for p in os.environ.get("PATH", "").split(os.pathsep):

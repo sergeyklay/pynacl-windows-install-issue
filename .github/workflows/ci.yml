@@ -46,6 +46,9 @@ jobs:
       - name: Find make
         run: Get-ChildItem C:\ -recurse -include "make.exe", "make.EXE"
 
+      - name: Show make version
+        run: make --version
+
       - name: Install PyNaCl
         run: pip install pynacl
 

@@ -45,7 +45,9 @@ jobs:
         run: Write-Host $Env:PathExt
 
       - name: Find make
-        run: Get-ChildItem C:\ProgramData\Chocolatey\bin -recurse -include "make.exe", "make.EXE"
+        run: |
+          # Get-ChildItem C:\ProgramData\Chocolatey\bin -recurse -include "make.exe", "make.EXE"
+          (Get-Command make).Path
 
       - name: Show make version
         run: make --version

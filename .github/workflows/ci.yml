@@ -67,8 +67,8 @@ jobs:
         run: |
           import shutil
 
-          shutil.which("make")
-          shutil.which("diff")
+          print(shutil.which("make"))
+          print(shutil.which("diff"))
 
       - name: Install PyNaCl
         run: python -m pip install pynacl

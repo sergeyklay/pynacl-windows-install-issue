@@ -58,7 +58,9 @@ jobs:
         run: make --version
 
       - name: Search make using Python code
-        run: python searchmake.py
+        run: |
+          python searchmake.py make
+          python searchmake.py diff
 
       - name: Install PyNaCl
         run: python -m pip install pynacl

@@ -50,7 +50,9 @@ jobs:
         run: Write-Host $Env:PathExt
 
       - name: Find make
-        run: (Get-Command make).Path
+        run: |
+          (Get-Command make).Path
+          (Get-Command diff).Path
 
       - name: Show make version
         run: make --version

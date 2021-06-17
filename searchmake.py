@@ -13,7 +13,26 @@ def find_executable(executable, path=None):
     by 'os.pathsep'; defaults to os.environ['PATH']). Checks for all
     executable extensions. Returns full path or None if no command
     is found.
+
+    Internally it tries to use 'shutil.which' first. However in some
+    cases 'shutil.which' may not find executable. For example in
+    Windows:
+
+    >>> shutil.which("make")
+    'C:\\ProgramData\\Chocolatey\\bin\\make.EXE'
+
+    >>> shutil.which("diff")
+    None
+
+    Thus, it tries 'shutil.which' and its own algorithm in case of
+    failure.
     """
+    # Try first 'shutil.which'.
+    cmd = shutil.which(executable, path=path)
+
+    if cmd:
+        return cmd
+
     if path is None:
         path = os.environ.get('PATH', '')
 
@@ -38,9 +57,9 @@ def find_executable(executable, path=None):
     for ext in extlist:
         execname = executable + ext
         for p in paths:
-            f = os.path.join(p, execname)
-            if os.path.isfile(f):
-                return f
+            cmd = os.path.join(p, execname)
+            if os.path.isfile(cmd):
+                return cmd
     else:
         return None
 
@@ -66,8 +85,8 @@ def which(name, flags=os.X_OK):  # Taken from pynacl's setup.py
 
 if __name__ == '__main__':
     if sys.argv[1:]:
-        print(shutil.which(sys.argv[1]))
-        print(which(sys.argv[1]))
-        print(find_executable(sys.argv[1]))
+        print('shutil: ', shutil.which(sys.argv[1]))
+        print('which: ', which(sys.argv[1]))
+        print('find_executable: ', find_executable(sys.argv[1]))
     else:
         print('usage: find_executable.py <progname>')

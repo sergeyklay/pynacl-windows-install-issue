@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import shutil
 import sys
 
 
@@ -26,7 +27,7 @@ def find_executable(executable, path=None):
         if not ext:
             executable = executable + '.exe'
     elif sys.platform == 'win32':
-        pathext = os.environget('PATHEXT', '').lower()
+        pathext = os.environ.get('PATHEXT', '').lower()
         pathext = pathext.split(os.pathsep)
         (base, ext) = os.path.splitext(executable)
         if ext.lower() not in pathext:
@@ -65,6 +66,7 @@ def which(name, flags=os.X_OK):  # Taken from pynacl's setup.py
 
 if __name__ == '__main__':
     if sys.argv[1:]:
+        print(shutil.which(sys.argv[1]))
         print(which(sys.argv[1]))
         print(find_executable(sys.argv[1]))
     else:
